@@ -36,9 +36,9 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
 
-// 把 passport 傳入 routes
-require('./routes')(app, passport) 
+
+
 // 引入 routes 並將 app 傳進去，讓 routes 可以用 app 這個物件來指定路由
-require('./routes')(app)
+require('./routes')(app, passport)// 把 passport 傳入 routes
 
 module.exports = app
