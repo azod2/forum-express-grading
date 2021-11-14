@@ -5,7 +5,7 @@ const userController = require('../controllers/userController.js')
 module.exports = (app, passport) => {
   //一般使用者認證
   const authenticated = (req, res, next) => {
-    console.log('00')
+    console.log('00:', req.isAuthenticated())
     if (req.isAuthenticated()) {
       return next()
     }
@@ -29,10 +29,10 @@ module.exports = (app, passport) => {
     res.send('Hello World!') 
   })
 
-  app.get('/restaurants', restController.getRestaurants)
+  // app.get('/restaurants', restController.getRestaurants)
 
   // 連到 /admin 頁面就轉到 /admin/restaurants
-  app.get('/admin', (req, res) => res.redirect('/admin/restaurants'))
+  // app.get('/admin', (req, res) => res.redirect('/admin/restaurants'))
 
   // 在 /admin/restaurants 底下則交給 adminController.getRestaurants 處理
   // app.get('/admin/restaurants', adminController.getRestaurants)
@@ -51,6 +51,7 @@ module.exports = (app, passport) => {
 
   app.get('/admin', authenticatedAdmin, (req, res) => res.redirect('/admin/restaurants'))
   app.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)
+  app.get('/admin/restaurants/create', authenticatedAdmin, adminController.createRestaurant)
   // app.get('/admin/restaurants', authenticatedAdmin,(req,res) => {
     // console.log('user:', req.user)
   // })
