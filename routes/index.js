@@ -53,6 +53,8 @@ module.exports = (app, passport) => {
   app.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)
   app.get('/admin/restaurants/create', authenticatedAdmin, adminController.createRestaurant)
   app.post('/admin/restaurants', authenticatedAdmin, adminController.postRestaurant)
+  app.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant)
+  app.get('/admin/restaurants/:id/edit', authenticatedAdmin, adminController.editRestaurant)
   // app.get('/admin/restaurants', authenticatedAdmin,(req,res) => {
     // console.log('user:', req.user)
   // })
