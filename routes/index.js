@@ -1,3 +1,5 @@
+const helpers = require('../_helpers')
+
 const restController = require('../controllers/restController.js')
 const adminController = require('../controllers/adminController.js')
 const userController = require('../controllers/userController.js')
@@ -7,22 +9,17 @@ const upload = multer({ dest: 'temp/' })
 module.exports = (app, passport) => {
   //一般使用者認證
   const authenticated = (req, res, next) => {
-    console.log('00:', req.isAuthenticated())
-    if (req.isAuthenticated()) {
+    if (helpers.isAuthenticated(req)) {
       return next()
     }
-    console.log('01')
     res.redirect('/signin')
   }
   //系統管理員認證
   const authenticatedAdmin = (req, res, next) => {
-    console.log('1')
-    if (req.isAuthenticated()) {
-      console.log('2')
-      if (req.user.isAdmin) { return next() }
+    if (helpers.isAuthenticated(req)) {
+      if (helpers.getUser(req).isAdmin) { return next() }
       return res.redirect('/')
     }
-    console.log('3')
     res.redirect('/signin')
   }
 
