@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 const express = require('express')
 const handlebars = require('express-handlebars');
 const db = require('./models') // 引入資料庫
@@ -16,15 +19,18 @@ app.set('view engine', 'hbs')
 //body-parser
 app.use(express.urlencoded({extended: true}))
 
+
+// setup session and flash
+app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
+
 // setup passport
 // setup session
 app.use(passport.initialize())
 app.use(passport.session())
-
-// setup session and flash
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(flash())
+app.use(methodOverride('_method'))
 
+app.use('/upload', express.static(__dirname + '/upload'))
 
 // 把 req.flash 放到 res.locals 裡面
 app.use((req, res, next) => {
@@ -34,9 +40,7 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use(methodOverride('_method'))
 
-app.use('/upload', express.static(__dirname + '/upload'))
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
