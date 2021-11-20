@@ -12,14 +12,16 @@ const app = express()
 const port = process.env.PORT || 3000
 
 
-// 設定 view engine 使用 handlebars
+//設定 view engine 使用 handlebars
 app.engine('hbs', handlebars(
     {defaultLayout: 'main', 
     extname: '.hbs', 
-    helpers: require('./config/handlebars-helpers')
+    helpers: require('./config/handlebars-helpers.js')
     }
   )
 )
+
+// app.engine('handlebars', handlebars({defaultLayout: 'main', helpers: require('./config/handlebars-helpers.js')}))
 
 app.set('view engine', 'hbs')
 
