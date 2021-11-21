@@ -2,7 +2,7 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 const express = require('express')
-const handlebars = require('express-handlebars');
+const handlebars = require('express-handlebars')
 const db = require('./models') // 引入資料庫
 const flash = require('connect-flash')
 const session = require('express-session')
@@ -11,23 +11,22 @@ const methodOverride = require('method-override')
 const app = express()
 const port = process.env.PORT || 3000
 
-
-//設定 view engine 使用 handlebars
+// 設定 view engine 使用 handlebars
 app.engine('hbs', handlebars(
-    {defaultLayout: 'main', 
-    extname: '.hbs', 
+  {
+    defaultLayout: 'main',
+    extname: '.hbs',
     helpers: require('./config/handlebars-helpers.js')
-    }
-  )
+  }
+)
 )
 
 // app.engine('handlebars', handlebars({defaultLayout: 'main', helpers: require('./config/handlebars-helpers.js')}))
 
 app.set('view engine', 'hbs')
 
-//body-parser
-app.use(express.urlencoded({extended: true}))
-
+// body-parser
+app.use(express.urlencoded({ extended: true }))
 
 // setup session and flash
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
@@ -49,13 +48,9 @@ app.use((req, res, next) => {
   next()
 })
 
-
-
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
-
-
 
 // 引入 routes 並將 app 傳進去，讓 routes 可以用 app 這個物件來指定路由
 require('./routes')(app, passport)// 把 passport 傳入 routes

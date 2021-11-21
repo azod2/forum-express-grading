@@ -58,12 +58,12 @@ const restController = {
         Category,
         { model: Comment, include: [User] }
       ]
-      }).then(restaurant => {
-        return res.render('restaurant', {
-          restaurant: restaurant.toJSON()
-        })
+    }).then(restaurant => {
+      return res.render('restaurant', {
+        restaurant: restaurant.toJSON()
       })
-   },
+    })
+  }
 }
 
 module.exports = restController
