@@ -9,14 +9,14 @@ const upload = multer({ dest: 'temp/' })
 const commentController = require('../controllers/commentController.js')
 
 module.exports = (app, passport) => {
-  //一般使用者認證
+  // 一般使用者認證
   const authenticated = (req, res, next) => {
     if (helpers.ensureAuthenticated(req)) {
       return next()
     }
     res.redirect('/signin')
   }
-  //系統管理員認證
+  // 系統管理員認證
   const authenticatedAdmin = (req, res, next) => {
     if (helpers.ensureAuthenticated(req)) {
       if (helpers.getUser(req).isAdmin) { return next() }
@@ -25,25 +25,14 @@ module.exports = (app, passport) => {
     res.redirect('/signin')
   }
 
-
-  // app.get('/', (req, res) => { res.send('Hello World!')  })
-
-  // app.get('/restaurants', restController.getRestaurants)
-
-  // 連到 /admin 頁面就轉到 /admin/restaurants
-  // app.get('/admin', (req, res) => res.redirect('/admin/restaurants'))
-
-  // 在 /admin/restaurants 底下則交給 adminController.getRestaurants 處理
-  // app.get('/admin/restaurants', adminController.getRestaurants)
-    
   app.get('/', authenticated, (req, res) => res.redirect('/restaurants'))
   app.get('/restaurants', authenticated, restController.getRestaurants)
-  
-  //註冊
+
+  // 註冊
   app.get('/signup', userController.signUpPage)
   app.post('/signup', userController.signUp)
 
-  //登入
+  // 登入
   app.get('/signin', userController.signInPage)
   app.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
   app.get('/logout', userController.logout)
@@ -72,6 +61,4 @@ module.exports = (app, passport) => {
 
   app.post('/comments', authenticated, commentController.postComment)
   app.delete('/comments/:id', authenticatedAdmin, commentController.deleteComment)
-
-  
 }
