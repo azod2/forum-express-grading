@@ -6,7 +6,26 @@
     <div class="card-body col-md-8">
       <h5 class="card-title">{{user.name}}</h5>
       <p class="card-text">{{user.email}}</p>
+      <p class="card-text">{{count}} 已評論餐廳</p>
+      </br>
+      </br>
       <a href="/users/{{user.id}}/edit" class="btn btn-primary">edit</a>
     </div>
+  </div>
+</div>
+</br>
+<div class="card md-auto col-md-12">
+  <div class="card-header">
+    已評論餐廳
+  </div>
+
+  <div class="row">
+    {{!-- <div class="col-md-4"> --}}
+      {{#each comment}}
+        <a href="/restaurants/{{this.Restaurant.id}}" class="col-md-2 my-4" style="max-height: 100px;">
+        <img class="card-img-top" src={{this.Restaurant.image}} />
+        </a>
+      {{/each}}
+
   </div>
 </div>
