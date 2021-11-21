@@ -6,6 +6,7 @@ const userController = require('../controllers/userController.js')
 const categoryController = require('../controllers/categoryController.js')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
+const commentController = require('../controllers/commentController.js')
 
 module.exports = (app, passport) => {
   //一般使用者認證
@@ -64,6 +65,8 @@ module.exports = (app, passport) => {
   app.get('/admin/categories/:id', authenticatedAdmin, categoryController.getCategories)
   app.put('/admin/categories/:id', authenticatedAdmin, categoryController.putCategory)
   app.delete('/admin/categories/:id', authenticatedAdmin, categoryController.deleteCategory)
-  
+
   app.get('/restaurants/:id', authenticated, restController.getRestaurant)
+
+  app.post('/comments', authenticated, commentController.postComment)
 }
