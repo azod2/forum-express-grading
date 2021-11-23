@@ -52,7 +52,7 @@ const userController = {
   },
 
   getUser: (req, res) => {
-    console.log('getUser router')
+    // console.log('getUser router')
     const id = req.params.id
     // res.render('profile')
     // return User.findByPk(req.params.id, {
@@ -69,7 +69,8 @@ const userController = {
         // console.log('comment: ', comment)
         // console.log('result: ',user)
         const count = comment.length
-        return res.render('profile', { user: user.toJSON(), comment , count })
+        // return res.render('profile', { user: user.toJSON(), comment , count })
+        return res.render('profile', { user: user.toJSON() })
       })
     })
   },

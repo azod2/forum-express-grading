@@ -88,20 +88,18 @@ const restController = {
       })
     })
   },
-  getDashboard: (req,res) => {
+  getDashBoard: (req,res) => {
     // res.render('dashboard')
 
     return Restaurant.findByPk(req.params.id, {
-      include: [
-        Category,
-        { model: Comment, include: [User] }
+      nclude: [
+        Category, {model: Comment, include: [User]}
       ]
     }).then(restaurant => {
-      const commentCount = restaurant.Comments.length
-      console.log('commentCount',commentCount)
+      // const commentCount = restaurant.Comments.count
+      // console.log('commentCount',commentCount)
       return res.render('dashboard', {
-        restaurant: restaurant.toJSON(),commentCount
-      })
+        restaurant: restaurant.toJSON()})
     })
 
   }
