@@ -92,14 +92,13 @@ const restController = {
     // res.render('dashboard')
 
     return Restaurant.findByPk(req.params.id, {
-      nclude: [
+      include: [
         Category, {model: Comment, include: [User]}
       ]
     }).then(restaurant => {
       // const commentCount = restaurant.Comments.count
-      // console.log('commentCount',commentCount)
-      return res.render('dashboard', {
-        restaurant: restaurant.toJSON()})
+      // console.log('commentCount',restaurant.toJSON())
+      return res.render('dashboard', { restaurant: restaurant.toJSON() })
     })
 
   }

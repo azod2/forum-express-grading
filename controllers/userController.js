@@ -50,31 +50,15 @@ const userController = {
     req.logout()
     res.redirect('/signin')
   },
-
   getUser: (req, res) => {
-    // console.log('getUser router')
-    const id = req.params.id
-    // res.render('profile')
-    // return User.findByPk(req.params.id, {
-    return User.findByPk(req.params.id)
-      .then((user) => {
-      Comment.findAll(
-      {
-      where:{UserId: id},
-        raw: true,
-        nest: true,
-        include: [ Restaurant ],        
-      }
-      ).then((comment) => {
-        // console.log('comment: ', comment)
-        // console.log('result: ',user)
-        const count = comment.length
-        // return res.render('profile', { user: user.toJSON(), comment , count })
-        return res.render('profile', { user: user.toJSON() })
-      })
+    return User.findByPk(req.params.id, {
+      include: [
+        { model: Comment, include: Restaurant }
+      ]
+    }).then(user => {
+      return res.render('profile', { user: user.toJSON() })
     })
   },
-
   editUser: (req, res) => {
     return User.findByPk(req.params.id)
       .then((user) => {
