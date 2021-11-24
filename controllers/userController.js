@@ -4,8 +4,10 @@ const User = db.User
 const Comment = db.Comment
 const Restaurant = db.Restaurant
 const Favorite = db.Favorite
+const Like = db.Like
 const imgur = require('imgur-node-api')
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID
+const helpers = require('../_helpers')
 
 const userController = {
   signUpPage: (req, res) => {
@@ -123,7 +125,30 @@ const userController = {
           })
       })
   },
-
+  addLike: (req, res) => {
+    const UserId =  helpers.getUser(req).id ? helpers.getUser(req).id : req.user.id
+    console.log('req: ', req)
+    return Like.create({
+      UserId: UserId,
+      RestaurantId: req.params.restaurantId
+    })
+      .then((restaurant) => {
+        return res.redirect('back')
+      })
+  },
+  removeLike: (req, res) => {
+    const operatorId = helpers.getUser(req).id ? helpers.getUser(req).id : req.user.id
+      return Like.destroy({
+        where: {
+          UserId: operatorId,
+          RestaurantId: req.params.restaurantId
+        }
+      })
+      .then(likes => {
+        console.log('like:',likes.toJSON())
+        return res.redirect('back')
+      })
+    }
 }
 
 module.exports = userController
