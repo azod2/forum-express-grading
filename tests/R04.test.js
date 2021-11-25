@@ -10,8 +10,8 @@ const { createModelMock, createControllerProxy, mockRequest, mockResponse } = re
 // 建立模擬的 Like 資料
 let mockLikeData = [
   {
-    userId: 1,
-    restaurantId: 2,
+    UserId: 1,
+    RestaurantId: 2,
   },
 ]
 
@@ -84,7 +84,7 @@ describe('# R04: Like / Unlike', function () {
 
       // 測試作業指定的 userController.removeLike 函式
       await this.userController.removeLike(req, res)
-
+      
       // 將模擬的 Like table 內的資料全數撈出
       const likes = await this.likeMock.findAll()
       // addLike 執行完畢後，Like table 應會從有 1 筆資料 -> 變成空的

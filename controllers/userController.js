@@ -137,15 +137,14 @@ const userController = {
       })
   },
   removeLike: (req, res) => {
-    const operatorId = helpers.getUser(req).id ? helpers.getUser(req).id : req.user.id
+    const UserId = helpers.getUser(req).id ? helpers.getUser(req).id : req.user.id
       return Like.destroy({
         where: {
-          UserId: operatorId,
+          UserId: UserId,
           RestaurantId: req.params.restaurantId
         }
       })
       .then(likes => {
-        console.log('like:',likes.toJSON())
         return res.redirect('back')
       })
     }
