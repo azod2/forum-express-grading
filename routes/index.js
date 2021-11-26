@@ -161,4 +161,5 @@ module.exports = (app, passport) => {
     authenticated,
     userController.removeLike
   );
+  app.get('/users/top', authenticated, userController.getTopUser)
 };
