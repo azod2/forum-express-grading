@@ -161,5 +161,7 @@ module.exports = (app, passport) => {
     authenticated,
     userController.removeLike
   );
-  app.get('/users/top', authenticated, userController.getTopUser)
+  app.get('/users/top', authenticated, userController.getTopUser);
+  app.post('/following/:userId', authenticated, userController.addFollowing)
+  app.delete('/following/:userId', authenticated, userController.removeFollowing)
 };
